@@ -68,7 +68,7 @@ namespace Job_Overview
             var activitésVers = Projet.TachesProd.Where(t => (t.VersionProjet == vers));
             var activités = activitésVers.Select(a => a.Activité).Distinct();
             int durée;
-            string res = string.Empty;
+            string res = string.Format("Quelques durées de travail réalisées sur la version {0} :\n", vers);
             foreach (var a in activités)
             {
                 durée = activitésVers.Where(av => av.Activité == a).Sum(d => d.DuréeRéalisée);
@@ -76,35 +76,44 @@ namespace Job_Overview
                 switch (a)
                 {
                     case Activités.DBE:
-
+                        res += string.Format("\t - Définition des besoins : {0}j\n", durée);
                         break;
                     case Activités.ARF:
+                        res += string.Format("\t - Architecture fonctionnelle : {0}j\n", durée);
                         break;
                     case Activités.ANF:
-              //          string += string.Format("Analyse Fonctionnelle : {0}j\n", durée);
+                        res += string.Format("\t - Analyse fonctionnelle : {0}j\n", durée);
                         break;
                     case Activités.DES:
+                        res += string.Format("\t - Design : {0}j\n", durée);
                         break;
                     case Activités.INF:
+                        res += string.Format("\t - Infographie : {0}j\n", durée);
                         break;
                     case Activités.ART:
+                        res += string.Format("\t - Architecture technique : {0}j\n", durée);
                         break;
                     case Activités.ANT:
+                        res += string.Format("\t - Analyse technique : {0}j\n", durée);
                         break;
                     case Activités.DEV:
+                        res += string.Format("\t - Développement : {0}j\n", durée);
                         break;
                     case Activités.RPT:
+                        res += string.Format("\t - Rédaction de plan de test : {0}j\n", durée);
                         break;
                     case Activités.TES:
+                        res += string.Format("\t - Test : {0}j\n", durée);
                         break;
                     case Activités.GDP:
+                        res += string.Format("\t - Gestion de projet : {0}j\n", durée);
                         break;
                     default:
                         break;
                 }
             }
 
-            return "";
+            return res;
         }
         #endregion
     }

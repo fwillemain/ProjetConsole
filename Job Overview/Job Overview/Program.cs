@@ -18,8 +18,10 @@ namespace Job_Overview
             Console.WriteLine(resultats.RetournerDuréesTravail("2.00"));
 
             Console.WriteLine();
-
             Console.WriteLine(resultats.RetournerDuréesVersion("1.00"));
+
+            Console.WriteLine();
+            Console.WriteLine(resultats.RetournerDuréesActivitésVersion("2.00"));
 
             Console.ReadKey();
         }
