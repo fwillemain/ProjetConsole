@@ -15,6 +15,7 @@ namespace Job_Overview
             // Console.WriteLine(genomica.RenvoyerStatutTache(138));
 
             Results resultats = new Results(genomica);
+
             Console.WriteLine(resultats.RetournerDuréesTravail("2.00"));
 
             Console.WriteLine();

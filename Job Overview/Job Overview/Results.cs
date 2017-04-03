@@ -36,13 +36,14 @@ namespace Job_Overview
         #endregion
 
         #region Méthodes publiques
-        public void ChargerRésultats(Projet p)
+        public void ChargerProjet(Projet p)
         {
             Projet = p;
         }
 
         public string RetournerDuréesTravail(string vers)
         {
+            //TODO : Results::Retourner... enlever le "version 2.00 partout"
             string res = string.Empty;
             var personnesVers = Projet.TachesProd.Where(t => (t.VersionProjet == vers)).Select(p => p.Personne).Distinct();
 
