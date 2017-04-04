@@ -30,7 +30,7 @@ namespace Job_Overview
             int dReal = res.Sum(d => d.DuréeRéalisée);
             int dRest = res.Sum(d => d.DuréeRestante);
 
-            return string.Format("Sur la version {0}, {1} {2} a réalisé {3} jours de travail, et il lui reste {4} jours de planifiés.",
+            return string.Format("{1} {2} a réalisé {3} jours de travail, et il lui reste {4} jours de planifiés. ",
                 vers, p.Prénom, p.Nom, dReal, dRest);
         }
         #endregion
@@ -40,11 +40,9 @@ namespace Job_Overview
         {
             Projet = p;
         }
-
         public string RetournerDuréesTravail(string vers)
         {
-            //TODO : Results::Retourner... enlever le "version 2.00 partout"
-            string res = string.Empty;
+            string res = string.Format("Sur la version {0}, ", vers);
             var personnesVers = Projet.TachesProd.Where(t => (t.VersionProjet == vers)).Select(p => p.Personne).Distinct();
 
             foreach (var p in personnesVers)
@@ -113,6 +111,15 @@ namespace Job_Overview
                         break;
                 }
             }
+
+            return res;
+        }
+        public string RetournerInfosTachesAnnexes()
+        {
+            string res = string.Empty;
+
+            foreach (var a in Projet.TachesAnnexes)
+                res += a.Value.ToString() + "\n";
 
             return res;
         }

@@ -10,30 +10,27 @@ namespace Job_Overview
 {
     public static class DAL
     {
-        #region Champs privés
-        private static Dictionary<string, Personne> _employés;
-        private static Dictionary<string, Activités> _activités;
-        #endregion
-
         #region Propriétés
+        public static Dictionary<string, Personne> DicoEmployés { get; }
+        public static Dictionary<string, Activités> DicoActivités { get; }
         #endregion
 
         #region Constructeurs
         static DAL()
         {
-            _employés = new Dictionary<string, Personne>();
-            _activités = new Dictionary<string, Activités>();
-            _activités.Add("DBE", Activités.DBE);
-            _activités.Add("ARF", Activités.ARF);
-            _activités.Add("ANF", Activités.ANF);
-            _activités.Add("DES", Activités.DES);
-            _activités.Add("INF", Activités.INF);
-            _activités.Add("ART", Activités.ART);
-            _activités.Add("ANT", Activités.ANT);
-            _activités.Add("DEV", Activités.DEV);
-            _activités.Add("RPT", Activités.RPT);
-            _activités.Add("TES", Activités.TES);
-            _activités.Add("GDP", Activités.GDP);
+            DicoEmployés = new Dictionary<string, Personne>();
+            DicoActivités = new Dictionary<string, Activités>();
+            DicoActivités.Add("DBE", Activités.DBE);
+            DicoActivités.Add("ARF", Activités.ARF);
+            DicoActivités.Add("ANF", Activités.ANF);
+            DicoActivités.Add("DES", Activités.DES);
+            DicoActivités.Add("INF", Activités.INF);
+            DicoActivités.Add("ART", Activités.ART);
+            DicoActivités.Add("ANT", Activités.ANT);
+            DicoActivités.Add("DEV", Activités.DEV);
+            DicoActivités.Add("RPT", Activités.RPT);
+            DicoActivités.Add("TES", Activités.TES);
+            DicoActivités.Add("GDP", Activités.GDP);
         }
         #endregion
 
@@ -42,15 +39,15 @@ namespace Job_Overview
         {
             if (path == null)
             {
-                _employés.Add("GL", new Personne("GL", "Geneviève", "LECLERCQ", Métiers.ANA));
-                _employés.Add("AF", new Personne("AF", "Angèle", "FERRAND", Métiers.ANA));
-                _employés.Add("BN", new Personne("BN", "Balthazar", "NORMAND", Métiers.CDP));
-                _employés.Add("RF", new Personne("RF", "Raymond", "FISHER", Métiers.DEV));
-                _employés.Add("LB", new Personne("LB", "Lucien", "BUTLER", Métiers.DEV));
-                _employés.Add("RB", new Personne("RB", "Roseline", "BEAUMONT", Métiers.DEV));
-                _employés.Add("MW", new Personne("MW", "Marguerite", "WEBER", Métiers.DES));
-                _employés.Add("HK", new Personne("HK", "Hilaire", "KLEIN", Métiers.TES));
-                _employés.Add("NP", new Personne("NP", "Nino", "PALMER", Métiers.TES));
+                DicoEmployés.Add("GL", new Personne("GL", "Geneviève", "LECLERCQ", Métiers.ANA));
+                DicoEmployés.Add("AF", new Personne("AF", "Angèle", "FERRAND", Métiers.ANA));
+                DicoEmployés.Add("BN", new Personne("BN", "Balthazar", "NORMAND", Métiers.CDP));
+                DicoEmployés.Add("RF", new Personne("RF", "Raymond", "FISHER", Métiers.DEV));
+                DicoEmployés.Add("LB", new Personne("LB", "Lucien", "BUTLER", Métiers.DEV));
+                DicoEmployés.Add("RB", new Personne("RB", "Roseline", "BEAUMONT", Métiers.DEV));
+                DicoEmployés.Add("MW", new Personne("MW", "Marguerite", "WEBER", Métiers.DES));
+                DicoEmployés.Add("HK", new Personne("HK", "Hilaire", "KLEIN", Métiers.TES));
+                DicoEmployés.Add("NP", new Personne("NP", "Nino", "PALMER", Métiers.TES));
             }
             else
             {
@@ -74,7 +71,7 @@ namespace Job_Overview
             {
                 ligne = data[i].Split('\t');
                 projet.AjouterTache(new TacheProd(int.Parse(ligne[0]), 
-                        ligne[1], _employés[ligne[2]], _activités[ligne[3]], 
+                        ligne[1], DicoEmployés[ligne[2]], DicoActivités[ligne[3]], 
                     ligne[4], DateTime.Parse(ligne[5]), int.Parse(ligne[6]), int.Parse(ligne[7]), int.Parse(ligne[8])));
             }
 

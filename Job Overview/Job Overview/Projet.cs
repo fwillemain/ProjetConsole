@@ -46,10 +46,10 @@ namespace Job_Overview
                 _tachesAnnexes.Add(code, t);
             else
             {
-                throw new NotImplementedException();
-                //TODO : Projet::AjouterTacheAnnexe, gérer si code déjà existant
+                throw new ArgumentException(string.Format("La tache avec le code {0} existe déjà.", code));
             }
         }
+        
         #endregion
 
         #region Méthodes publiques
@@ -60,14 +60,15 @@ namespace Job_Overview
             else
             {
                 TacheAnnexe ta = (TacheAnnexe)t;
-                AjouterTacheAnnexe(ta.Code, ta);
+                AjouterTacheAnnexe(ta.NumTache, ta);
             }
         }
 
         public string RenvoyerStatutTache(int code)
         {
-            return _tachesProd[code - 1].RenvoyerStatut();
+            return _tachesProd[code - 1].ToString();
         }
+        
         #endregion
     }
 }

@@ -34,6 +34,7 @@ namespace Job_Overview
         }
         #endregion
 
+        #region Opérateurs
         static public bool operator ==(Personne p1, Personne p2)
         {
             return p1.Nom == p2.Nom && p1.Prénom == p2.Prénom;
@@ -43,6 +44,14 @@ namespace Job_Overview
         {
             return p1.Nom != p2.Nom || p1.Prénom != p2.Prénom;
         }
+        #endregion
 
+        #region Méthodes publiques
+        public override string ToString()
+        {
+            //TODO (optionnel) : Personne::ToString() gérer un affichage plus complet
+            return string.Format("{0} {1}", Prénom, Nom);
+        }
+        #endregion
     }
 }
