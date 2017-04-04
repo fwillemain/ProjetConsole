@@ -25,7 +25,7 @@ namespace Job_Overview
         #endregion
 
         #region Constructeurs
-        public Personne( string code, string prénom, string nom, Métiers métier )
+        public Personne(string code, string prénom, string nom, Métiers métier)
         {
             Code = code;
             Prénom = prénom;
@@ -35,11 +35,22 @@ namespace Job_Overview
         #endregion
 
         #region Opérateurs
+        /// <summary>
+        /// Retourne vrai si les deux personnes ont le même nom et prénom
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         static public bool operator ==(Personne p1, Personne p2)
         {
             return p1.Nom == p2.Nom && p1.Prénom == p2.Prénom;
         }
-
+        /// <summary>
+        /// Retourne vrai si les deux personnes ont un nom et/ou un prénom différent
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        /// <returns></returns>
         static public bool operator !=(Personne p1, Personne p2)
         {
             return p1.Nom != p2.Nom || p1.Prénom != p2.Prénom;

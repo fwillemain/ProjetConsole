@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Job_Overview
 {
-    public class Results
+    public class Results    
     {
-        #region Champs privés
-
-        #endregion
-
         #region Propriétés
-        public Projet Projet { get; private set; }
+        public Projet Projet { get; private set; }  // Projet dont les résultats seront retournés l'appel des différentes méthodes de la classe
         #endregion
 
         #region Constructeurs
+        /// <summary>
+        /// Constructeur prenant en paramètre le projet dont les résultats seront affichés
+        /// </summary>
+        /// <param name="p"></param>
         public Results(Projet p)
         {
             Projet = p; 
@@ -36,10 +36,20 @@ namespace Job_Overview
         #endregion
 
         #region Méthodes publiques
+        /// <summary>
+        /// Charge un nouveau projet
+        /// </summary>
+        /// <param name="p"></param>
         public void ChargerProjet(Projet p)
         {
             Projet = p;
         }
+        /// <summary>
+        /// Retourne une chaine de caractère décrivant les durées de travail réalisé et restante de chaque personne
+        /// travaillant sur la version indiquée.
+        /// </summary>
+        /// <param name="vers"></param>
+        /// <returns></returns>
         public string RetournerDuréesTravail(string vers)
         {
             string res = string.Format("Sur la version {0}, ", vers);
@@ -50,6 +60,12 @@ namespace Job_Overview
 
             return res;
         }
+        /// <summary>
+        /// Retourne une chaine de caractère décrivant le nombre de jour et le pourcentage d'avance ou de retard sur la
+        /// version indiquée
+        /// </summary>
+        /// <param name="vers"></param>
+        /// <returns></returns>
         public string RetournerDuréesVersion(string vers)
         {
             var tachesVers = Projet.TachesProd.Where(t => (t.VersionProjet == vers));
@@ -62,6 +78,12 @@ namespace Job_Overview
                 vers, Math.Abs(diff), diff < 0 ? "avant" : "après", diff * 100 / duréeRéaliséeTot);
 
         }
+        /// <summary>
+        /// Retourne une chaine de caractère décrivant la durée total de travail réalisé sur chaque activité
+        /// de la version indiquée
+        /// </summary>
+        /// <param name="vers"></param>
+        /// <returns></returns>
         public string RetournerDuréesActivitésVersion(string vers)
         {
             var activitésVers = Projet.TachesProd.Where(t => (t.VersionProjet == vers));
@@ -74,37 +96,37 @@ namespace Job_Overview
 
                 switch (a)
                 {
-                    case Activités.DBE:
+                    case ActivitésProd.DBE:
                         res += string.Format("\t - Définition des besoins : {0}j\n", durée);
                         break;
-                    case Activités.ARF:
+                    case ActivitésProd.ARF:
                         res += string.Format("\t - Architecture fonctionnelle : {0}j\n", durée);
                         break;
-                    case Activités.ANF:
+                    case ActivitésProd.ANF:
                         res += string.Format("\t - Analyse fonctionnelle : {0}j\n", durée);
                         break;
-                    case Activités.DES:
+                    case ActivitésProd.DES:
                         res += string.Format("\t - Design : {0}j\n", durée);
                         break;
-                    case Activités.INF:
+                    case ActivitésProd.INF:
                         res += string.Format("\t - Infographie : {0}j\n", durée);
                         break;
-                    case Activités.ART:
+                    case ActivitésProd.ART:
                         res += string.Format("\t - Architecture technique : {0}j\n", durée);
                         break;
-                    case Activités.ANT:
+                    case ActivitésProd.ANT:
                         res += string.Format("\t - Analyse technique : {0}j\n", durée);
                         break;
-                    case Activités.DEV:
+                    case ActivitésProd.DEV:
                         res += string.Format("\t - Développement : {0}j\n", durée);
                         break;
-                    case Activités.RPT:
+                    case ActivitésProd.RPT:
                         res += string.Format("\t - Rédaction de plan de test : {0}j\n", durée);
                         break;
-                    case Activités.TES:
+                    case ActivitésProd.TES:
                         res += string.Format("\t - Test : {0}j\n", durée);
                         break;
-                    case Activités.GDP:
+                    case ActivitésProd.GDP:
                         res += string.Format("\t - Gestion de projet : {0}j\n", durée);
                         break;
                     default:
@@ -114,6 +136,10 @@ namespace Job_Overview
 
             return res;
         }
+        /// <summary>
+        /// Retourne une chaine de caractère contenant les informations de toutes les taches annexes existantes
+        /// </summary>
+        /// <returns></returns>
         public string RetournerInfosTachesAnnexes()
         {
             string res = string.Empty;
@@ -122,6 +148,11 @@ namespace Job_Overview
                 res += a.Value.ToString() + "\n";
 
             return res;
+        }
+        public string RetournerCumulTempsMoisTachesAnnexes()
+        {
+            // TODO : à implémenter
+            return "";
         }
         #endregion
     }

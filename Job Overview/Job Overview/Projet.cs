@@ -9,8 +9,8 @@ namespace Job_Overview
     public class Projet
     {
         #region Champs privés
-        private List<TacheProd> _tachesProd;
-        private SortedDictionary<int, TacheAnnexe> _tachesAnnexes;
+        private List<TacheProd> _tachesProd;    // Liste des taches de production liées au projet
+        private SortedDictionary<int, TacheAnnexe> _tachesAnnexes;      // Liste des taches annexes liées au projet (classé par identifiant
         #endregion
 
         #region Propriétés
@@ -53,6 +53,10 @@ namespace Job_Overview
         #endregion
 
         #region Méthodes publiques
+        /// <summary>
+        /// Ajoute une tache (annexe ou de production) au projet
+        /// </summary>
+        /// <param name="t"></param>
         public void AjouterTache(Tache t)
         {
             if (t is TacheProd)
@@ -63,12 +67,6 @@ namespace Job_Overview
                 AjouterTacheAnnexe(ta.NumTache, ta);
             }
         }
-
-        public string RenvoyerStatutTache(int code)
-        {
-            return _tachesProd[code - 1].ToString();
-        }
-        
         #endregion
     }
 }

@@ -11,7 +11,8 @@ namespace Job_Overview
         static void Main(string[] args)
         {
             Projet genomica = DAL.ChargerProjet(@"D:\ProjetConsole\ProjetConsole\Job Overview\Feuille de calcul dans D  ProjetConsole Projet JobOverview - 1.txt");
-
+            
+            // Test de divers fonction de Results sur le projet genomica
             Results resultats = new Results(genomica);
             Console.WriteLine(resultats.RetournerDuréesTravail("2.00"));
 
@@ -25,7 +26,7 @@ namespace Job_Overview
 
             string réponse;
             bool continuer = true;
-            while (continuer)
+            while (continuer)   // Tant que l'utilisateur veut saisir des activités annexes
             {
                 continuer = false;
                 Console.WriteLine("Voulez-vous saisir des activités annexes? (O/N)");
@@ -39,16 +40,17 @@ namespace Job_Overview
                     continuer = true;
             }
 
+            // Affiche les informations sur les taches annexes
             Console.Clear();
             Console.WriteLine(resultats.RetournerInfosTachesAnnexes());
 
-            // TODO : Main, gérer la demande d'un nouveau CodeTache si il existe déjà
+            // TODO (optionnel) : Main(), gérer la demande d'un nouveau CodeTache si il existe déjà
             Console.ReadKey();
-
         }
 
         public static void SaisirDonnéesTacheAnnexe(Projet p)
         {
+            // Récupère et teste quand nécessaire les informations nécessaires à la création d'une tache annexe
             Console.WriteLine("Saisir les informations suivantes :\n\t- un numéro CodeTache (doit être unique)");
             int codeTache;
             while (!int.TryParse(Console.ReadLine(), out codeTache))
@@ -56,6 +58,9 @@ namespace Job_Overview
 
             Console.WriteLine("\t- Libellé :");
             string libellé = Console.ReadLine();
+
+            Console.WriteLine("\t- Activité (\"INDEFINI\", \"APPUI\", \"REUNION\", \"DDP\", \"EVENT\") :");
+            string activité = Console.ReadLine();
 
             Console.WriteLine("\t- Code personne (peut être spécifié plus tard) :");
             string codePers = Console.ReadLine();
@@ -83,21 +88,21 @@ namespace Job_Overview
                     rep = Console.ReadLine();
                 }
             }
-            // TODO (optionnel) : gérer si DateFin < DateDébut
+            // TODO (optionnel) : Program::SaisirDonnéesTacheAnnexe(...) gérer si DateFin < DateDébut
 
-            try
+            try   // Tente d'instancier une tache annexe avec les informations fournies par l'utilisateur
             {
-                TacheAnnexe tacheA = new TacheAnnexe(codeTache, libellé, codePers); ;
+                TacheAnnexe tacheA = new TacheAnnexe(codeTache, libellé, codePers, activité);
                 if (boolDateDéb)
                     if (boolDateFin)
                     {
-                        tacheA = new TacheAnnexe(codeTache, libellé, dateDéb, dateFin, codePers);
+                        tacheA = new TacheAnnexe(codeTache, libellé, dateDéb, dateFin, codePers, activité);
                     }
                     else
-                        tacheA = new TacheAnnexe(codeTache, libellé, dateDéb, codePers);
+                        tacheA = new TacheAnnexe(codeTache, libellé, dateDéb, codePers, activité);
                 p.AjouterTache(tacheA);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException e) // Informe l'utilisateur qu'une erreur a eu lieu et que la tache n'a pas été ajouté
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("La tache n'a pas pu être ajoutée.");
